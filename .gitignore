@@ -2,13 +2,13 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Mm]emoryCaptures/
+Rubik's Cube/[Ll]ibrary/
+Rubik's Cube/[Tt]emp/
+Rubik's Cube/[Oo]bj/
+Rubik's Cube/[Bb]uild/
+Rubik's Cube/[Bb]uilds/
+Rubik's Cube/[Ll]ogs/
+Rubik's Cube/[Mm]emoryCaptures/
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
