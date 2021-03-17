@@ -17,11 +17,8 @@ public class GridCursor : MonoBehaviour
 
     //for swiping
     Vector3 firstPressPos;
-    bool dragging = false;
-    public float sensitivity = 0.01f;//adjust this for sliding speed
-    bool leftRight = false;
-    bool upDown = false;
 
+    //the grid
     GridManager gridManager;
 
     // Start is called before the first frame update
@@ -39,7 +36,6 @@ public class GridCursor : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             firstPressPos = Input.mousePosition;//get the location of the initial click
-            //dragging = true;
             ped = new PointerEventData(ev);
             ped.position = Input.mousePosition;
 
@@ -52,7 +48,7 @@ public class GridCursor : MonoBehaviour
                 break;
             }
         }
-        if (Input.GetKeyDown(KeyCode.E) && Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.E) && Input.GetKey(KeyCode.LeftShift))//rotate whole cube clockwise
         {
             //up
             gridManager.UpdateGrid(-1, false, 0, true);
@@ -69,7 +65,7 @@ public class GridCursor : MonoBehaviour
             gridManager.UpdateGrid(1, false, 1, true);
             gridManager.UpdateGrid(1, false, 2, true);
         }
-        else if (Input.GetKeyDown(KeyCode.Q) && Input.GetKey(KeyCode.LeftShift))
+        else if (Input.GetKeyDown(KeyCode.Q) && Input.GetKey(KeyCode.LeftShift))//rotate whole cube counter-clockwise
         {
             //up
             gridManager.UpdateGrid(-1, false, 0, true);
@@ -86,41 +82,41 @@ public class GridCursor : MonoBehaviour
             gridManager.UpdateGrid(1, false, 1, true);
             gridManager.UpdateGrid(1, false, 2, true);
         }
-        else if(Input.GetKeyDown(KeyCode.E))
+        else if(Input.GetKeyDown(KeyCode.E))//rotate main face clockwise
         {
             gridManager.RotateFaceClockwise(true, 0, true);
             gridManager.UpdateMainNine(false);
         }
-        else if (Input.GetKeyDown(KeyCode.Q))
+        else if (Input.GetKeyDown(KeyCode.Q))//rotate main face counter-clockwise
         {
             gridManager.RotateFaceCounterClockwise(true, 0, true);
             gridManager.UpdateMainNine(false);
         }
-        else if (Input.GetKeyDown(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
+        else if (Input.GetKeyDown(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))//rotate whole cube right
         {
             gridManager.UpdateGrid(1, true, 0, false);         
             gridManager.UpdateGrid(1, true, 1, false);         
             gridManager.UpdateGrid(1, true, 2, false);
         }
-        else if (Input.GetKeyDown(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
+        else if (Input.GetKeyDown(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))//rotate whole cube left
         {
             gridManager.UpdateGrid(-1, true, 0, false);
             gridManager.UpdateGrid(-1, true, 1, false);
             gridManager.UpdateGrid(-1, true, 2, false);
         }
-        else if (Input.GetKeyDown(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
+        else if (Input.GetKeyDown(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))//rotate whole cube up
         {
             gridManager.UpdateGrid(-1, false, 0, true);            
             gridManager.UpdateGrid(-1, false, 1, true);            
             gridManager.UpdateGrid(-1, false, 2, true);            
         }
-        else if (Input.GetKeyDown(KeyCode.S) && Input.GetKey(KeyCode.LeftShift))
+        else if (Input.GetKeyDown(KeyCode.S) && Input.GetKey(KeyCode.LeftShift))//rotate whole cube down
         {
             gridManager.UpdateGrid(1, false, 0, true);            
             gridManager.UpdateGrid(1, false, 1, true);            
             gridManager.UpdateGrid(1, false, 2, true);            
         }
-        else if (Input.GetKeyDown(KeyCode.A))
+        else if (Input.GetKeyDown(KeyCode.A))//rotate row left
         {
             if (gridManager.currentRow == gridManager.row0)
             {
@@ -135,7 +131,7 @@ public class GridCursor : MonoBehaviour
                 gridManager.UpdateGrid(-1, true, 2, false);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.D))//rotate row right
         {
             if (gridManager.currentRow == gridManager.row0)
             {
@@ -150,7 +146,7 @@ public class GridCursor : MonoBehaviour
                 gridManager.UpdateGrid(1, true, 2, false);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.W))
+        else if (Input.GetKeyDown(KeyCode.W))//rotate col up
         {
             if (gridManager.currentCol == gridManager.col0)
             {
@@ -165,7 +161,7 @@ public class GridCursor : MonoBehaviour
                 gridManager.UpdateGrid(-1, false, 2, true);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKeyDown(KeyCode.S))//rotate col down
         {
             if (gridManager.currentCol == gridManager.col0)
             {
@@ -193,47 +189,6 @@ public class GridCursor : MonoBehaviour
             vec.z = Mathf.Round(vec.z / scale) * scale;
             tile.transform.localPosition = vec;
         }
-    }
-
-    bool RSwipe(Vector2 swipe)
-    {
-        return swipe.x < 0 && swipe.y > -0.5 && swipe.y < 0.5;
-    }
-    bool LSwipe(Vector2 swipe)
-    {
-        return swipe.x > 0 && swipe.y > -0.5 && swipe.y < 0.5;
-    }
-    bool DSwipe(Vector2 swipe)
-    {
-        return swipe.y > 0 && swipe.x > -0.5 && swipe.x < 0.5;
-    }
-    bool USwipe(Vector2 swipe)
-    {
-        return swipe.y < 0 && swipe.x > -0.5 && swipe.x < 0.5;
-    }
-    bool FSwipe(Vector2 swipe)
-    {
-        return swipe.y < 0 && swipe.x > -0.5 && swipe.x < 0.5;
-    }
-    bool MSwipe(Vector2 swipe)
-    {
-        return swipe.y < 0 && swipe.x > -0.5 && swipe.x < 0.5;
-    }
-    bool ESwipe(Vector2 swipe)
-    {
-        return swipe.y < 0 && swipe.x > -0.5 && swipe.x < 0.5;
-    }
-    bool XRotate(Vector2 swipe)
-    {
-        return swipe.y < 0 && swipe.x > -0.5 && swipe.x < 0.5;
-    }
-    bool YRotate(Vector2 swipe)
-    {
-        return swipe.y < 0 && swipe.x > -0.5 && swipe.x < 0.5;
-    }
-    bool ZRotate(Vector2 swipe)
-    {
-        return swipe.y < 0 && swipe.x > -0.5 && swipe.x < 0.5;
     }
 
     void SetCurrentRowAndCol(string tile)//based on click sets currentRow/Col in the grid

@@ -33,6 +33,12 @@ public class GridMap : MonoBehaviour
 
     void UpdateMap(Color[] rowCol, Transform mapGroups, bool isRow = true)
     {
+        Color red = new Color(0.8627451f, 0f, 0f, 1f);
+        Color green = new Color(0f, 0.8627451f, 0f, 1f);
+        Color blue = new Color(0f, 0f, 0.8627451f, 1f);
+        Color yellow = new Color(1f, 0.9215686f, 0.01568628f, 1f);
+        Color orange = new Color(0.9411765f, 0.5f, 0f, 1f);
+        Color black = new Color(.1f, .1f, .1f);
         int i;
         if (isRow)
         {
@@ -44,9 +50,13 @@ public class GridMap : MonoBehaviour
         }
         foreach (Transform cell in mapGroups)
         {
-            if (rowCol[i] == Color.magenta)
+            if (rowCol[i] == orange)
             {
-                cell.GetComponent<Image>().color = Color.magenta;//orange, but actually magenta
+                cell.GetComponent<Image>().color = orange;//orange, but actually magenta
+            }
+            else if (rowCol[i] == red)
+            {
+                cell.GetComponent<Image>().color = red;
             }
             else if (rowCol[i] == Color.red)
             {
@@ -56,17 +66,37 @@ public class GridMap : MonoBehaviour
             {
                 cell.GetComponent<Image>().color = Color.white;
             }
+            else if (rowCol[i] == green)
+            {
+                cell.GetComponent<Image>().color = green;
+            }
             else if (rowCol[i] == Color.green)
             {
                 cell.GetComponent<Image>().color = Color.green;
             }
-            else if (rowCol[i] == Color.yellow)
+            else if (rowCol[i] == yellow)
             {
-                cell.GetComponent<Image>().color = Color.yellow;
+                cell.GetComponent<Image>().color = yellow;
+            }
+            else if (rowCol[i] == blue)
+            {
+                cell.GetComponent<Image>().color = blue;
             }
             else if (rowCol[i] == Color.blue)
             {
                 cell.GetComponent<Image>().color = Color.blue;
+            }
+            else if (rowCol[i] == black)
+            {
+                cell.GetComponent<Image>().color = black;
+            }
+            else if (rowCol[i] == Color.magenta)
+            {
+                cell.GetComponent<Image>().color = Color.magenta;
+            }
+            else if (rowCol[i] == Color.cyan)
+            {
+                cell.GetComponent<Image>().color = Color.cyan;
             }
             else
             {

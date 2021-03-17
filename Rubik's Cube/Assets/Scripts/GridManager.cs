@@ -10,12 +10,16 @@ public class GridManager : MonoBehaviour
     private const float TILE_OFFSET = 0.5f;
     private const float GRID_HEIGHT = 3f;
     private const float GRID_WIDTH = 3f;
+
+    private GlobalControl globalControl;
     
 
     //keep track of the current row and col so we know which ones to slide
     [HideInInspector] public Color[] currentRow;
     [HideInInspector] public Color[] currentCol;
 
+    [HideInInspector] public Color[] colorSelection;
+    
     //The rows and cols of colors - to be rooms later
     public Color[] row0 = { Color.white, Color.white, Color.white, Color.red, Color.red, Color.red, Color.yellow, Color.yellow, Color.yellow, Color.magenta, Color.magenta, Color.magenta };
     public Color[] row1 = { Color.white, Color.white, Color.white, Color.red, Color.red, Color.red, Color.yellow, Color.yellow, Color.yellow, Color.magenta, Color.magenta, Color.magenta };
@@ -42,6 +46,16 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        globalControl = FindObjectOfType<GlobalControl>();
+        if (globalControl != null)
+        {
+            colorSelection = globalControl.GetColors();
+            if(colorSelection != null)
+            {
+                SetRowColors(colorSelection);
+                SetColColors(colorSelection);
+            }
+        }
         //save the original positions of all the grid panels so we can reset them when necessary
         SetOriginalPos(gridPanelsRow0, originalPositionsRow0);
         SetOriginalPos(gridPanelsRow1, originalPositionsRow1);
@@ -55,6 +69,69 @@ public class GridManager : MonoBehaviour
     void Update()
     {
         DrawColors();
+    }
+
+    public void SetRowColors(Color[] colorPalette)
+    {
+        for(int i = 0; i<row0.Length; i++)
+        {
+            if(i < 3)
+            {
+                row0[i] = colorPalette[5];
+                row1[i] = colorPalette[5];
+                row2[i] = colorPalette[5];
+            }
+            else if(i < 6)
+            {
+                row0[i] = colorPalette[0];
+                row1[i] = colorPalette[0];
+                row2[i] = colorPalette[0];
+            }
+            else if (i < 9)
+            {
+                row0[i] = colorPalette[2];
+                row1[i] = colorPalette[2];
+                row2[i] = colorPalette[2];
+            }
+            else
+            {
+                row0[i] = colorPalette[3];
+                row1[i] = colorPalette[3];
+                row2[i] = colorPalette[3];
+            }
+
+        }
+    }
+    public void SetColColors(Color[] colorPalette)
+    {
+        for (int i = 0; i < col0.Length; i++)
+        {
+            if (i < 3)
+            {
+                col0[i] = colorPalette[5];
+                col1[i] = colorPalette[5];
+                col2[i] = colorPalette[5];
+            }
+            else if (i < 6)
+            {
+                col0[i] = colorPalette[4];
+                col1[i] = colorPalette[4];
+                col2[i] = colorPalette[4];
+            }
+            else if (i < 9)
+            {
+                col0[i] = colorPalette[2];
+                col1[i] = colorPalette[2];
+                col2[i] = colorPalette[2];
+            }
+            else
+            {
+                col0[i] = colorPalette[1];
+                col1[i] = colorPalette[1];
+                col2[i] = colorPalette[1];
+            }
+
+        }
     }
 
     //shifts up for cols or left for rows
